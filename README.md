@@ -1,5 +1,7 @@
 # Block Mode for X
 
+[中文说明](README.zh-CN.md)
+
 A Chrome extension for selecting X accounts on the page and running batch block or mute actions with a floating toolbar.
 
 ## Features
@@ -19,4 +21,3 @@ npm run build
 ```
 
 Load the generated `dist` folder as an unpacked Chrome extension.
-
