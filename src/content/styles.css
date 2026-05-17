@@ -1,0 +1,1372 @@
+:root {
+  --bmx-bg: rgba(15, 15, 18, 0.94);
+  --bmx-bg-solid: #0f0f12;
+  --bmx-border: rgba(255, 255, 255, 0.08);
+  --bmx-border-hover: rgba(255, 255, 255, 0.15);
+  --bmx-text: #e7e9ea;
+  --bmx-text-sec: #71767b;
+  --bmx-text-muted: #536471;
+  --bmx-red: #f4212e;
+  --bmx-red-bg: rgba(244, 33, 46, 0.12);
+  --bmx-blue: #1d9bf0;
+  --bmx-blue-bg: rgba(29, 155, 240, 0.12);
+  --bmx-green: #00ba7c;
+  --bmx-green-bg: rgba(0, 186, 124, 0.12);
+  --bmx-orange: #ff7a00;
+  --bmx-orange-bg: rgba(255, 122, 0, 0.12);
+  --bmx-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  --bmx-radius: 16px;
+  --bmx-radius-sm: 10px;
+  --bmx-radius-xs: 6px;
+  --bmx-tr: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --bmx-tr-fast: 0.15s ease;
+  --bmx-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.bmx-toolbar {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 99999;
+  font-family: var(--bmx-font);
+  user-select: none
+}
+
+.bmx-toolbar--compact {
+  right: -12px
+}
+
+.bmx-toolbar--hidden {
+  display: none
+}
+
+.bmx-floating-shell {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(15, 15, 18, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(18px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: visible;
+  transition: width var(--bmx-tr), height var(--bmx-tr), border-color var(--bmx-tr), transform var(--bmx-tr), background var(--bmx-tr), opacity var(--bmx-tr);
+  box-sizing: border-box;
+  touch-action: none
+}
+
+.bmx-floating-shell:hover {
+  background: rgba(15, 15, 18, 0.84);
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: scale(1.04)
+}
+
+.bmx-floating-shell--compact {
+  width: 30px;
+  height: 30px;
+  background: rgba(15, 15, 18, 0.58);
+  opacity: 0.86
+}
+
+.bmx-floating-shell--dragging {
+  transition: none;
+  cursor: grabbing
+}
+
+.bmx-toolbar-collapsed {
+  height: 100%;
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: var(--bmx-text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--bmx-tr);
+  overflow: hidden;
+  position: relative;
+  padding: 0;
+  appearance: none;
+  box-sizing: border-box;
+  font-family: var(--bmx-font);
+  border-radius: 50%
+}
+
+.bmx-floating-shell--dragging .bmx-toolbar-collapsed {
+  cursor: grabbing
+}
+
+.bmx-toolbar-collapsed:focus-visible {
+  outline: 2px solid var(--bmx-blue);
+  outline-offset: -2px
+}
+
+.bmx-toolbar-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative
+}
+
+.bmx-toolbar-img {
+  width: 32px;
+  height: 32px;
+  display: block;
+  border-radius: 9px
+}
+
+.bmx-floating-shell--compact .bmx-toolbar-icon {
+  width: 22px;
+  height: 22px
+}
+
+.bmx-floating-shell--compact .bmx-toolbar-img {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px
+}
+
+.bmx-floating-hover-bridge {
+  position: absolute;
+  left: -24px;
+  bottom: -27px;
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  background: transparent;
+  pointer-events: auto
+}
+
+.bmx-floating-hide {
+  position: absolute;
+  left: -20px;
+  bottom: -21px;
+  width: 23px;
+  height: 23px;
+  transform: scale(0.82);
+  border: 1px solid rgba(255, 255, 255, 0.48);
+  border-radius: 50%;
+  background: rgba(170, 170, 170, 0.5);
+  color: rgba(255, 255, 255, 0.92);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 700 18px/1 var(--bmx-font);
+  opacity: 0;
+  pointer-events: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
+  transition: opacity var(--bmx-tr-fast), transform var(--bmx-tr-fast), background var(--bmx-tr-fast);
+  z-index: 2
+}
+
+.bmx-floating-shell:hover .bmx-floating-hide {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1)
+}
+
+.bmx-floating-hide:hover {
+  opacity: 1;
+  background: rgba(160, 160, 160, 0.72)
+}
+
+.bmx-floating-shell--compact .bmx-floating-hover-bridge {
+  left: -22px;
+  bottom: -24px;
+  width: 38px;
+  height: 38px
+}
+
+.bmx-floating-shell--compact .bmx-floating-hide {
+  left: -18px;
+  bottom: -18px;
+  width: 21px;
+  height: 21px;
+  font-size: 17px
+}
+
+.bmx-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  background: var(--bmx-red);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  font-family: var(--bmx-font);
+  box-shadow: 0 2px 6px rgba(244, 33, 46, 0.4);
+  animation: bmx-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)
+}
+
+.bmx-floating-shell .bmx-badge {
+  top: -5px;
+  right: -5px
+}
+
+.bmx-floating-shell--compact .bmx-badge {
+  display: none
+}
+
+@keyframes bmx-pop {
+  from {
+    transform: scale(0)
+  }
+
+  to {
+    transform: scale(1)
+  }
+}
+
+.bmx-toolbar-expanded {
+  width: 268px;
+  border-radius: var(--bmx-radius);
+  background: var(--bmx-bg);
+  border: 1px solid var(--bmx-border);
+  box-shadow: var(--bmx-shadow);
+  backdrop-filter: blur(20px);
+  padding: 0;
+  animation: bmx-slide 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden
+}
+
+@keyframes bmx-slide {
+  from {
+    opacity: 0;
+    transform: translateX(16px) scale(0.95)
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1)
+  }
+}
+
+@keyframes bmx-fade {
+  from {
+    opacity: 0
+  }
+
+  to {
+    opacity: 1
+  }
+}
+
+.bmx-panel-header {
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid var(--bmx-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between
+}
+
+.bmx-panel-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--bmx-text);
+  letter-spacing: 0.5px;
+  text-transform: uppercase
+}
+
+.bmx-panel-close {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--bmx-text-sec);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--bmx-tr-fast);
+  font-size: 18px;
+  line-height: 1
+}
+
+.bmx-panel-close:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--bmx-text)
+}
+
+.bmx-mode-done {
+  height: 28px;
+  border: 1px solid rgba(29, 155, 240, 0.28);
+  border-radius: 999px;
+  background: rgba(29, 155, 240, 0.12);
+  color: #70c6ff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 11px;
+  font: 700 12px/1 var(--bmx-font);
+  transition: all var(--bmx-tr-fast)
+}
+
+.bmx-mode-done:hover {
+  background: rgba(29, 155, 240, 0.2);
+  border-color: rgba(29, 155, 240, 0.46);
+  color: #9bd8ff
+}
+
+.bmx-mode-done:active {
+  transform: scale(0.96)
+}
+
+.bmx-panel-body {
+  padding: 12px 14px
+}
+
+.bmx-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: var(--bmx-radius-xs);
+  background: rgba(255, 255, 255, 0.03);
+  margin-bottom: 12px
+}
+
+.bmx-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--bmx-green);
+  animation: bmx-pulse 2s ease-in-out infinite
+}
+
+@keyframes bmx-pulse {
+
+  0%,
+  100% {
+    opacity: 1
+  }
+
+  50% {
+    opacity: 0.4
+  }
+}
+
+.bmx-status-dot--off {
+  background: var(--bmx-text-sec);
+  animation: none
+}
+
+.bmx-status-text {
+  font-size: 12px;
+  color: var(--bmx-text-sec)
+}
+
+.bmx-status-count {
+  color: var(--bmx-text);
+  font-weight: 600;
+  margin-left: auto;
+  font-size: 14px
+}
+
+.bmx-btn {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: var(--bmx-radius-xs);
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--bmx-text);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--bmx-tr-fast);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+  font-family: var(--bmx-font);
+  text-align: left
+}
+
+.bmx-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--bmx-border-hover)
+}
+
+.bmx-btn:active {
+  transform: scale(0.98)
+}
+
+.bmx-btn:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+  transform: none
+}
+
+.bmx-btn:disabled:hover {
+  background: transparent;
+  border-color: transparent;
+  color: var(--bmx-text-sec)
+}
+
+.bmx-btn--primary {
+  background: var(--bmx-text);
+  color: var(--bmx-bg-solid);
+  font-weight: 600
+}
+
+.bmx-btn--primary:hover {
+  background: #fff
+}
+
+.bmx-btn--danger {
+  background: var(--bmx-red-bg);
+  color: var(--bmx-red);
+  border-color: rgba(244, 33, 46, 0.15)
+}
+
+.bmx-btn--danger:hover {
+  background: rgba(244, 33, 46, 0.2);
+  border-color: rgba(244, 33, 46, 0.3)
+}
+
+.bmx-btn--mute {
+  background: var(--bmx-orange-bg);
+  color: var(--bmx-orange);
+  border-color: rgba(255, 122, 0, 0.15)
+}
+
+.bmx-btn--mute:hover {
+  background: rgba(255, 122, 0, 0.2)
+}
+
+.bmx-btn--success {
+  background: var(--bmx-green-bg);
+  color: var(--bmx-green)
+}
+
+.bmx-btn--ghost {
+  background: transparent;
+  color: var(--bmx-text-sec)
+}
+
+.bmx-btn--ghost:hover {
+  color: var(--bmx-text);
+  background: rgba(255, 255, 255, 0.06)
+}
+
+.bmx-btn-shortcut {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--bmx-text-muted);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 2px 6px;
+  border-radius: 4px
+}
+
+.bmx-btn-icon {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: currentColor;
+  flex: 0 0 auto
+}
+
+.bmx-btn-icon svg {
+  width: 16px;
+  height: 16px
+}
+
+.bmx-btn-divider {
+  height: 1px;
+  background: var(--bmx-border);
+  margin: 8px 0
+}
+
+.bmx-action-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 10px
+}
+
+.bmx-option {
+  min-height: 78px;
+  border: 1px solid var(--bmx-border);
+  border-radius: var(--bmx-radius-sm);
+  background: rgba(255, 255, 255, 0.055);
+  color: var(--bmx-text);
+  cursor: pointer;
+  font-family: var(--bmx-font);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 1fr auto;
+  gap: 8px;
+  padding: 12px;
+  text-align: left;
+  transition: all var(--bmx-tr-fast);
+  position: relative
+}
+
+.bmx-option:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--bmx-border-hover);
+  transform: translateY(-1px)
+}
+
+.bmx-option:active {
+  transform: translateY(0) scale(0.98)
+}
+
+.bmx-option:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+  transform: none
+}
+
+.bmx-option:disabled:hover {
+  background: rgba(255, 255, 255, 0.055);
+  border-color: var(--bmx-border);
+  transform: none
+}
+
+.bmx-option-icon {
+  grid-column: 1/-1;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bmx-text)
+}
+
+.bmx-option-icon svg {
+  width: 22px;
+  height: 22px
+}
+
+.bmx-option-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--bmx-text);
+  line-height: 1.1
+}
+
+.bmx-option .bmx-btn-shortcut {
+  align-self: end
+}
+
+.bmx-option--danger {
+  background: var(--bmx-red-bg);
+  border-color: rgba(244, 33, 46, 0.22);
+  color: var(--bmx-red)
+}
+
+.bmx-option--danger .bmx-option-icon,
+.bmx-option--danger .bmx-option-label {
+  color: var(--bmx-red)
+}
+
+.bmx-option--danger:hover {
+  background: rgba(244, 33, 46, 0.2);
+  border-color: rgba(244, 33, 46, 0.36)
+}
+
+.bmx-option--mute {
+  background: var(--bmx-orange-bg);
+  border-color: rgba(255, 122, 0, 0.22)
+}
+
+.bmx-option--mute .bmx-option-icon,
+.bmx-option--mute .bmx-option-label {
+  color: var(--bmx-orange)
+}
+
+.bmx-option--mute:hover {
+  background: rgba(255, 122, 0, 0.2);
+  border-color: rgba(255, 122, 0, 0.34)
+}
+
+.bmx-select-btn {
+  position: absolute;
+  left: -14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--bmx-text-sec);
+  background: var(--bmx-bg-solid);
+  cursor: pointer;
+  transition: all var(--bmx-tr-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  padding: 0;
+  outline: none;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3)
+}
+
+.bmx-select-btn:hover {
+  border-color: var(--bmx-blue);
+  background: var(--bmx-blue-bg);
+  transform: translateY(-50%) scale(1.1)
+}
+
+.bmx-select-btn--selected {
+  border-color: #70c6ff;
+  background: var(--bmx-blue);
+  box-shadow: 0 0 0 4px rgba(29, 155, 240, 0.18), 0 8px 20px rgba(29, 155, 240, 0.32)
+}
+
+.bmx-select-btn--selected::after {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 6px;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(-45deg) translateY(-1px)
+}
+
+.bmx-select-btn--selected:hover {
+  background: #38adf8;
+  border-color: #38adf8
+}
+
+.bmx-article-wrapper {
+  position: relative;
+  cursor: pointer
+}
+
+.bmx-article-wrapper:not(.bmx-article-selected):hover {
+  background: rgba(29, 155, 240, 0.035) !important
+}
+
+.bmx-article-wrapper a,
+.bmx-article-wrapper button,
+.bmx-article-wrapper label,
+.bmx-article-wrapper summary,
+.bmx-article-wrapper video,
+.bmx-article-wrapper audio,
+.bmx-article-wrapper img,
+.bmx-article-wrapper [role="button"],
+.bmx-article-wrapper [role="link"],
+.bmx-article-wrapper [role="menuitem"] {
+  cursor: pointer
+}
+
+.bmx-article-wrapper input,
+.bmx-article-wrapper textarea,
+.bmx-article-wrapper select {
+  cursor: auto
+}
+
+.bmx-article-selected {
+  background: rgba(29, 155, 240, 0.1) !important;
+  box-shadow: inset 4px 0 0 var(--bmx-blue), inset 0 0 0 1px rgba(29, 155, 240, 0.42) !important;
+  border-radius: 6px;
+  position: relative
+}
+
+.bmx-article-selected::after {
+  content: attr(data-bmx-selected-label);
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  border: 1px solid rgba(29, 155, 240, 0.42);
+  border-radius: 999px;
+  background: rgba(15, 15, 18, 0.84);
+  color: #70c6ff;
+  font: 700 11px/1 var(--bmx-font);
+  padding: 5px 8px;
+  z-index: 9;
+  pointer-events: none;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.24)
+}
+
+.bmx-review-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 100000;
+  animation: bmx-fade 0.2s ease;
+  backdrop-filter: blur(4px)
+}
+
+.bmx-review-panel {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 380px;
+  max-width: 90vw;
+  background: var(--bmx-bg-solid);
+  border-left: 1px solid var(--bmx-border);
+  z-index: 100001;
+  display: flex;
+  flex-direction: column;
+  animation: bmx-drawer 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.5)
+}
+
+@keyframes bmx-drawer {
+  from {
+    transform: translateX(100%)
+  }
+
+  to {
+    transform: translateX(0)
+  }
+}
+
+.bmx-review-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--bmx-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between
+}
+
+.bmx-review-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bmx-text)
+}
+
+.bmx-review-count {
+  font-size: 13px;
+  color: var(--bmx-text-sec);
+  padding: 16px 24px 8px
+}
+
+.bmx-review-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 24px
+}
+
+.bmx-review-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: var(--bmx-radius-xs);
+  margin-bottom: 2px;
+  transition: background var(--bmx-tr-fast)
+}
+
+.bmx-review-item:hover {
+  background: rgba(255, 255, 255, 0.04)
+}
+
+.bmx-review-handle {
+  font-size: 14px;
+  color: var(--bmx-text);
+  font-weight: 500
+}
+
+.bmx-review-remove {
+  background: none;
+  border: none;
+  color: var(--bmx-text-muted);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  transition: all var(--bmx-tr-fast);
+  font-family: var(--bmx-font)
+}
+
+.bmx-review-remove:hover {
+  background: var(--bmx-red-bg);
+  color: var(--bmx-red)
+}
+
+.bmx-review-footer {
+  padding: 16px 24px 20px;
+  border-top: 1px solid var(--bmx-border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px
+}
+
+.bmx-review-footer-row {
+  display: flex;
+  gap: 8px
+}
+
+.bmx-review-footer-row .bmx-btn {
+  flex: 1;
+  justify-content: center;
+  margin-bottom: 0
+}
+
+.bmx-progress {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+  margin: 8px 0 12px
+}
+
+.bmx-progress-bar {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.3s ease
+}
+
+.bmx-progress-bar--block {
+  background: var(--bmx-red)
+}
+
+.bmx-progress-bar--mute {
+  background: var(--bmx-orange)
+}
+
+.bmx-queue-status {
+  font-size: 12px;
+  color: var(--bmx-text-sec);
+  text-align: center;
+  margin: 0 0 8px
+}
+
+.bmx-queue-current {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--bmx-text);
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--bmx-radius-xs);
+  margin-bottom: 12px;
+  text-align: center;
+  word-break: break-all
+}
+
+.bmx-queue-counter {
+  font-size: 12px;
+  color: var(--bmx-text-sec);
+  text-align: center;
+  margin-bottom: 4px
+}
+
+.bmx-done-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bmx-green-bg);
+  border-radius: 50%
+}
+
+.bmx-done-icon svg {
+  width: 24px;
+  height: 24px;
+  color: var(--bmx-green)
+}
+
+.bmx-done-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px
+}
+
+.bmx-done-stat {
+  text-align: center;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--bmx-radius-xs)
+}
+
+.bmx-done-stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bmx-text)
+}
+
+.bmx-done-stat-label {
+  font-size: 11px;
+  color: var(--bmx-text-sec);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 2px
+}
+
+.bmx-toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--bmx-bg);
+  border: 1px solid var(--bmx-border);
+  border-radius: var(--bmx-radius-sm);
+  padding: 12px 20px;
+  color: var(--bmx-text);
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--bmx-font);
+  box-shadow: var(--bmx-shadow);
+  z-index: 100002;
+  opacity: 0;
+  animation: bmx-toast-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none
+}
+
+.bmx-toast--success {
+  border-color: rgba(0, 186, 124, 0.2)
+}
+
+.bmx-toast--error {
+  border-color: rgba(244, 33, 46, 0.2)
+}
+
+@keyframes bmx-toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px)
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0)
+  }
+}
+
+@keyframes bmx-toast-out {
+  from {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0)
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px)
+  }
+}
+
+.bmx-help-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 100003;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: bmx-fade 0.2s ease;
+  backdrop-filter: blur(6px)
+}
+
+.bmx-help-panel {
+  background: var(--bmx-bg-solid);
+  border: 1px solid var(--bmx-border);
+  border-radius: var(--bmx-radius);
+  padding: 28px 32px;
+  width: 400px;
+  max-width: 90vw;
+  box-shadow: var(--bmx-shadow)
+}
+
+.bmx-help-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--bmx-text);
+  margin-bottom: 20px;
+  text-align: center
+}
+
+.bmx-help-grid {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 8px 16px;
+  font-size: 13px
+}
+
+.bmx-help-key {
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--bmx-text);
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 12px
+}
+
+.bmx-help-action {
+  color: var(--bmx-text-sec);
+  display: flex;
+  align-items: center
+}
+
+.bmx-help-section {
+  grid-column: 1/-1;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--bmx-text-muted);
+  margin-top: 12px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--bmx-border)
+}
+
+.bmx-help-section:first-child {
+  margin-top: 0
+}
+
+.bmx-mode-active::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--bmx-red), var(--bmx-orange), var(--bmx-red));
+  background-size: 200% 100%;
+  animation: bmx-bar 3s ease-in-out infinite;
+  z-index: 99998;
+  pointer-events: none
+}
+
+@keyframes bmx-bar {
+
+  0%,
+  100% {
+    background-position: 0% 0
+  }
+
+  50% {
+    background-position: 100% 0
+  }
+}
+
+.bmx-review-list::-webkit-scrollbar {
+  width: 6px
+}
+
+.bmx-review-list::-webkit-scrollbar-track {
+  background: transparent
+}
+
+.bmx-review-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px
+}
+
+.bmx-review-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2)
+}
+
+.bmx-import-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.58);
+  z-index: 100004;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: bmx-fade 0.2s ease;
+  backdrop-filter: blur(5px);
+  font-family: var(--bmx-font)
+}
+
+.bmx-import-panel {
+  width: 430px;
+  max-width: calc(100vw - 32px);
+  background: var(--bmx-bg-solid);
+  border: 1px solid var(--bmx-border);
+  border-radius: var(--bmx-radius);
+  box-shadow: var(--bmx-shadow);
+  padding: 0;
+  overflow: hidden
+}
+
+.bmx-import-header {
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--bmx-border);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px
+}
+
+.bmx-import-title {
+  font-size: 17px;
+  font-weight: 750;
+  color: var(--bmx-text);
+  line-height: 1.2;
+  margin-bottom: 6px
+}
+
+.bmx-import-desc {
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--bmx-text-sec)
+}
+
+.bmx-import-textarea {
+  width: calc(100% - 40px);
+  min-height: 180px;
+  margin: 18px 20px 14px;
+  padding: 12px 13px;
+  border-radius: var(--bmx-radius-xs);
+  border: 1px solid var(--bmx-border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--bmx-text);
+  font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  resize: vertical;
+  outline: none;
+  box-sizing: border-box
+}
+
+.bmx-import-textarea:focus {
+  border-color: rgba(29, 155, 240, 0.55);
+  box-shadow: 0 0 0 3px rgba(29, 155, 240, 0.12)
+}
+
+.bmx-import-textarea::placeholder {
+  color: var(--bmx-text-muted)
+}
+
+.bmx-import-footer {
+  padding: 0 20px 20px;
+  display: flex;
+  gap: 10px
+}
+
+.bmx-import-footer .bmx-btn {
+  margin-bottom: 0;
+  justify-content: center
+}
+
+.bmx-history-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.58);
+  z-index: 100004;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: bmx-fade 0.2s ease;
+  backdrop-filter: blur(5px);
+  font-family: var(--bmx-font)
+}
+
+.bmx-history-panel {
+  width: 460px;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 80px);
+  background: var(--bmx-bg-solid);
+  border: 1px solid var(--bmx-border);
+  border-radius: var(--bmx-radius);
+  box-shadow: var(--bmx-shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column
+}
+
+.bmx-history-header {
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--bmx-border);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px
+}
+
+.bmx-history-title {
+  font-size: 17px;
+  font-weight: 750;
+  color: var(--bmx-text);
+  line-height: 1.2;
+  margin-bottom: 6px
+}
+
+.bmx-history-desc {
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--bmx-text-sec)
+}
+
+.bmx-history-content {
+  padding: 16px 20px 20px;
+  overflow: auto
+}
+
+.bmx-history-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--bmx-green);
+  background: var(--bmx-green-bg);
+  border: 1px solid rgba(0, 186, 124, 0.18);
+  border-radius: var(--bmx-radius-xs);
+  padding: 10px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 12px
+}
+
+.bmx-history-copy {
+  border: 1px solid rgba(0, 186, 124, 0.28);
+  border-radius: 999px;
+  background: rgba(0, 186, 124, 0.14);
+  color: var(--bmx-green);
+  cursor: pointer;
+  font: 700 12px/1 var(--bmx-font);
+  padding: 7px 10px;
+  white-space: nowrap;
+  transition: all var(--bmx-tr-fast)
+}
+
+.bmx-history-copy:hover {
+  background: rgba(0, 186, 124, 0.22);
+  border-color: rgba(0, 186, 124, 0.42)
+}
+
+.bmx-history-copy--done,
+.bmx-history-copy--done:hover {
+  background: var(--bmx-green);
+  border-color: var(--bmx-green);
+  color: var(--bmx-bg-solid)
+}
+
+.bmx-history-copy:disabled {
+  opacity: 0.45;
+  cursor: not-allowed
+}
+
+.bmx-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px
+}
+
+.bmx-history-item {
+  border: 1px solid var(--bmx-border);
+  background: rgba(255, 255, 255, 0.035);
+  border-radius: var(--bmx-radius-sm);
+  padding: 12px
+}
+
+.bmx-history-item--block {
+  border-color: rgba(244, 33, 46, 0.14)
+}
+
+.bmx-history-item--mute {
+  border-color: rgba(255, 122, 0, 0.16)
+}
+
+.bmx-history-item-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px
+}
+
+.bmx-history-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0
+}
+
+.bmx-history-action {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  padding: 4px 8px;
+  font: 800 12px/1 var(--bmx-font)
+}
+
+.bmx-history-action--block {
+  color: var(--bmx-red);
+  background: var(--bmx-red-bg);
+  border: 1px solid rgba(244, 33, 46, 0.2)
+}
+
+.bmx-history-action--mute {
+  color: var(--bmx-orange);
+  background: var(--bmx-orange-bg);
+  border: 1px solid rgba(255, 122, 0, 0.2)
+}
+
+.bmx-history-time {
+  color: var(--bmx-text);
+  font-size: 13px;
+  font-weight: 700
+}
+
+.bmx-history-stats {
+  color: var(--bmx-text-muted);
+  font-size: 11px;
+  line-height: 1.4;
+  text-align: right
+}
+
+.bmx-history-handles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px
+}
+
+.bmx-history-handle {
+  color: #70c6ff;
+  background: rgba(29, 155, 240, 0.1);
+  border: 1px solid rgba(29, 155, 240, 0.18);
+  border-radius: 999px;
+  padding: 4px 8px;
+  font: 600 12px/1 var(--bmx-font);
+  text-decoration: none;
+  transition: all var(--bmx-tr-fast)
+}
+
+.bmx-history-handle:hover {
+  background: rgba(29, 155, 240, 0.18);
+  border-color: rgba(29, 155, 240, 0.32)
+}
+
+.bmx-history-handle--mute {
+  color: #ffb166;
+  background: rgba(255, 122, 0, 0.1);
+  border-color: rgba(255, 122, 0, 0.18)
+}
+
+.bmx-history-handle--mute:hover {
+  background: rgba(255, 122, 0, 0.18);
+  border-color: rgba(255, 122, 0, 0.32)
+}
+
+.bmx-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--bmx-text-sec);
+  font-size: 13px
+}
+
+.bmx-empty-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+  opacity: 0.4
+}

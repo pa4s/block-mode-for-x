@@ -1,0 +1,8 @@
+{
+  "extName": {
+    "message": "Block Mode for X"
+  },
+  "extDescription": {
+    "message": "Select accounts on X and process block or mute actions faster. Enter Block Mode, select accounts, and run background Block/Mute queues."
+  }
+}

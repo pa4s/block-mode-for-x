@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="title">Block Mode for X</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 330px;
+      background: #0f0f12;
+      color: #e7e9ea;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      padding: 20px;
+    }
+    .popup-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .popup-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .popup-icon img { width: 100%; height: 100%; object-fit: cover; }
+    .popup-title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .popup-version {
+      font-size: 11px;
+      color: #71767b;
+      margin-top: 2px;
+    }
+    .popup-desc {
+      font-size: 13px;
+      color: #71767b;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    .popup-shortcut {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+    .popup-shortcut-label {
+      font-size: 13px;
+      color: #e7e9ea;
+    }
+    .popup-shortcut-key {
+      font-family: ui-monospace, SFMono-Regular, monospace;
+      font-size: 11px;
+      background: rgba(255,255,255,0.08);
+      color: #71767b;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .popup-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+      margin: 12px 0;
+    }
+    .popup-section-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #e7e9ea;
+      margin-bottom: 8px;
+    }
+    .popup-history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+      max-height: 190px;
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+    .popup-history-item {
+      padding: 10px 12px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px;
+    }
+    .popup-history-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .popup-history-action {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 7px;
+      border-radius: 999px;
+    }
+    .popup-history-action.block {
+      color: #ff5a64;
+      background: rgba(244,33,46,0.14);
+    }
+    .popup-history-action.mute {
+      color: #ff9b38;
+      background: rgba(255,122,0,0.14);
+    }
+    .popup-history-time {
+      font-size: 11px;
+      color: #536471;
+      white-space: nowrap;
+    }
+    .popup-history-stats {
+      font-size: 12px;
+      line-height: 1.45;
+      color: #71767b;
+    }
+    .popup-history-empty {
+      padding: 12px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      color: #71767b;
+      font-size: 12px;
+      line-height: 1.45;
+      margin-bottom: 12px;
+    }
+    .popup-footer {
+      text-align: center;
+      font-size: 11px;
+      color: #536471;
+    }
+    .popup-footer a {
+      color: #1d9bf0;
+      text-decoration: none;
+    }
+    .popup-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: rgba(0,186,124,0.08);
+      border-radius: 8px;
+      margin-bottom: 12px;
+      font-size: 12px;
+      color: #00ba7c;
+    }
+    .popup-status-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #00ba7c;
+    }
+  </style>
+</head>
+<body>
+  <div class="popup-header">
+    <div class="popup-icon">
+      <img src="icons/icon48.png" alt="Block Mode for X">
+    </div>
+    <div>
+      <div class="popup-title" data-i18n="title">Block Mode for X</div>
+      <div class="popup-version">v0.1.0</div>
+    </div>
+  </div>
+
+  <div class="popup-status">
+    <div class="popup-status-dot"></div>
+    <span data-i18n="status">Active on x.com</span>
+  </div>
+
+  <div class="popup-desc" data-i18n="description">
+    Select accounts on X and process block or mute actions faster. Open any X page and use the floating toolbar.
+  </div>
+
+  <div class="popup-shortcut">
+    <span class="popup-shortcut-label" data-i18n="help">Shortcut Help</span>
+    <span class="popup-shortcut-key">?</span>
+  </div>
+
+  <div class="popup-divider"></div>
+
+  <div class="popup-section-title" data-i18n="historyTitle">Recent history</div>
+  <div id="history-list" class="popup-history-list"></div>
+
+  <div class="popup-divider"></div>
+
+  <div class="popup-footer">
+    <span data-i18n="worksPrefix">Works on</span> <a href="https://x.com" target="_blank">x.com</a> &amp; <a href="https://twitter.com" target="_blank">twitter.com</a>
+  </div>
+  <script>
+    const HISTORY_STORAGE_KEY = 'bmxActionHistory';
+    const languageCandidates = [
+      navigator.language,
+      ...(navigator.languages || []),
+      chrome.i18n && chrome.i18n.getUILanguage ? chrome.i18n.getUILanguage() : '',
+      chrome.i18n && chrome.i18n.getMessage ? chrome.i18n.getMessage('@@ui_locale') : '',
+    ];
+    const lang = languageCandidates.some((value) => String(value).toLowerCase().startsWith('zh')) ? 'zh' : 'en';
+    const messages = {
+      en: {
+        title: 'Block Mode for X',
+        status: 'Active on x.com',
+        description: 'Select accounts on X and process block or mute actions faster. Open any X page and use the floating toolbar.',
+        help: 'Shortcut Help',
+        historyTitle: 'Recent history',
+        historyEmpty: 'No block or mute runs yet.',
+        block: 'Block',
+        mute: 'Mute',
+        done: 'done',
+        failed: 'failed',
+        skipped: 'skipped',
+        total: 'total',
+        worksPrefix: 'Works on',
+      },
+      zh: {
+        title: 'X 屏蔽模式',
+        status: '已在 x.com 启用',
+        description: '在 X 页面快速选择账号，并在后台自动屏蔽或静音。打开任意 X 页面后使用右侧悬浮工具栏。',
+        help: '快捷键帮助',
+        historyTitle: '最近历史',
+        historyEmpty: '还没有屏蔽或静音记录。',
+        block: '屏蔽',
+        mute: '静音',
+        done: '完成',
+        failed: '失败',
+        skipped: '跳过',
+        total: '总计',
+        worksPrefix: '支持',
+      },
+    };
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    document.querySelectorAll('[data-i18n]').forEach((el) => {
+      const key = el.getAttribute('data-i18n');
+      if (key && messages[lang][key]) el.textContent = messages[lang][key];
+    });
+
+    function formatTime(timestamp) {
+      return new Intl.DateTimeFormat(lang === 'zh' ? 'zh-CN' : 'en', {
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      }).format(new Date(timestamp));
+    }
+
+    function renderHistory(history) {
+      const list = document.getElementById('history-list');
+      if (!list) return;
+
+      const recent = Array.isArray(history) ? history.slice(0, 5) : [];
+      if (recent.length === 0) {
+        list.className = 'popup-history-empty';
+        list.textContent = messages[lang].historyEmpty;
+        return;
+      }
+
+      list.className = 'popup-history-list';
+      list.textContent = '';
+      recent.forEach((entry) => {
+        const item = document.createElement('div');
+        item.className = 'popup-history-item';
+
+        const action = document.createElement('span');
+        action.className = `popup-history-action ${entry.actionType}`;
+        action.textContent = messages[lang][entry.actionType] || entry.actionType;
+
+        const time = document.createElement('span');
+        time.className = 'popup-history-time';
+        time.textContent = formatTime(entry.finishedAt);
+
+        const top = document.createElement('div');
+        top.className = 'popup-history-top';
+        top.append(action, time);
+
+        const stats = document.createElement('div');
+        stats.className = 'popup-history-stats';
+        stats.textContent = `${messages[lang].done} ${entry.processed.length} · ${messages[lang].failed} ${entry.failed.length} · ${messages[lang].skipped} ${entry.skipped.length} · ${messages[lang].total} ${entry.total}`;
+
+        item.append(top, stats);
+        list.appendChild(item);
+      });
+    }
+
+    chrome.storage.local.get(HISTORY_STORAGE_KEY, (result) => {
+      renderHistory(result[HISTORY_STORAGE_KEY]);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "extName": {
+    "message": "X 屏蔽模式"
+  },
+  "extDescription": {
+    "message": "在 X 页面快速选择账号，并在后台自动执行屏蔽或静音队列。"
+  }
+}
